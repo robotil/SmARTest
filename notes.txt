@@ -1,0 +1,11 @@
+Compile:
+mkdir build
+cd build
+cmake ..
+make
+
+
+Command line to generate scenario:
+cd ~smartest;
+
+build/devel/lib/smartest/mainGen -genSFV SFDP/convoy.SFDP work_space/scenario_2 resource/resource_convoy.xml
