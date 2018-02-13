@@ -18,6 +18,7 @@ class SFVwp : public sfvSubGroup  {
 private :
 	ScenarioFeature * my_relative_angle;
 	ScenarioFeature * my_relative_distance;
+	ScenarioFeature * my_velocity;
 
 	std::map<char,float> * Implicit_wp_xy;
 
@@ -40,6 +41,9 @@ public :
 
 	inline ScenarioFeature * get_RalativeDistance()
 		{ return(my_relative_distance); }
+
+	inline ScenarioFeature * get_Velocity()
+		{ return(my_velocity); }
 
 };
 

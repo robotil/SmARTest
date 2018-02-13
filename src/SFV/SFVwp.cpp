@@ -30,6 +30,7 @@ void SFVwp::initFeaturesMap()
 
     my_features_map->insert(std::pair<ScenarioFeatureType,ScenarioFeature**>(ScenarioFeatureType::wp_i_relative_angle, & my_relative_angle ) );
     my_features_map->insert(std::pair<ScenarioFeatureType,ScenarioFeature**>(ScenarioFeatureType::wp_i_relative_distance, & my_relative_distance));
+    my_features_map->insert(std::pair<ScenarioFeatureType,ScenarioFeature**>(ScenarioFeatureType::wp_i_velocity, & my_velocity));
 
 }
 
