@@ -18,3 +18,7 @@ make
 cd ~smartest;
 
 build/devel/lib/smartest/mainGen -genSFV SFDP/convoy.SFDP work_space/scenario_2 resource/resource_convoy.xml
+
+
+# Command line to generate ad run Multiple scenarios:
+build/devel/lib/smartest/mainGen -MultipleScensGenRun SFDP/convoy.SFDP work_space resource/resource_convoy.xml 5
