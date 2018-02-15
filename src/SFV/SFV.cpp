@@ -21,6 +21,8 @@
 
 //#include "Generators/Gazebo/GazeboScenarioGenerator.h"
 //#include "Executor/GazeboExecutor.h"
+#include "Executor/UnityExecutor.h"
+
 
 //#include "std_msgs/Float32MultiArray.h"
 
@@ -294,23 +296,26 @@ int SFV::generate()
 
 
 int SFV::execute(int argc, char** argv)
-{ /*
-	generate();
+{ 
 
-	GazeboExecutor * ScenExe = new GazeboExecutor(this);
-	if (! ScenExe->RunScenario(argc,argv))
-	{
-		std::cout << "\033[1;31m Execution of SFVs scenario have failed \033[0m"<< std::endl;
-		return(0);
-	}
+	UnityExecutor * ScenExe = new UnityExecutor(this);
 
-	my_grades = ScenExe->get_scenario_grades();
+//	generate();
+
+// //GazeboExecutor * ScenExe = new GazeboExecutor(this);
+ if (! ScenExe->RunScenario(argc,argv))
+   {
+ 	std::cout << "\033[1;31m Execution of SFVs scenario have failed \033[0m"<< std::endl;
+ 	return(0);
+   }
+
+//	my_grades = ScenExe->get_scenario_grades();
 	was_executed_flag = true;
-	PrintResultsToFile();
+//	PrintResultsToFile();
 
 
 	return 1;
-	*/
+	
 }
 
 

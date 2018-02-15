@@ -119,7 +119,7 @@ int SFDPobj::GenMySFVs(int samp_num)
 	for (int sfv_index=1 ; sfv_index<=samp_num ; sfv_index++ )
 	{
 
-		std::string folder_url = my_WS_url + "sampl_" + std::to_string(sfv_index);
+		std::string folder_url = my_WS_url + "/sampl_" + std::to_string(sfv_index);
 		file_url = folder_url + "/scen.SFV";
 
 
@@ -160,7 +160,7 @@ int SFDPobj::GenMySFVs(int samp_num)
 
 
 int SFDPobj::RunMySFVs(int argc, char** argv)
-{/*
+{
 	int sfv_index=0;
 	std::vector<float> grads_sums;
 	std::vector<float> grads_sums_of_squers;
@@ -168,7 +168,7 @@ int SFDPobj::RunMySFVs(int argc, char** argv)
 	for (SFV * sfv_it : * my_sampled_SFVs )
 	{
 		sfv_it->execute(argc, argv);
-		if (sfv_it->get_WasExecutedFlag())
+/*		if (sfv_it->get_WasExecutedFlag())
 			{
 			for(int i=0 ; i<(sfv_it->get_Grades())->data.size() ; i++)
 				{
@@ -189,9 +189,9 @@ int SFDPobj::RunMySFVs(int argc, char** argv)
 
 			sfv_index++;
 			PrintMyResultsToFile();
-			}
+			} */
 	}
-
+/*
 	if (sfv_index == 0)
 		{
 		std::cout << "\033[1;31m No SFV was successfully executed \033[1;31m" << std::endl;
@@ -209,9 +209,9 @@ int SFDPobj::RunMySFVs(int argc, char** argv)
 
 	have_been_run = true;
     PrintMyResultsToFile();
-
-	return 1;
 */
+	return 1;
+
 }
 
 

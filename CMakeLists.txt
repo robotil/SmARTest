@@ -188,6 +188,7 @@ SFVobsOnPathScattering
 #RULE_wp_path_inside_map
 #GazeboExecutor
 #GazeboScenarioGenerator
+UnityExecutor
 )
 
 ##############
@@ -237,7 +238,10 @@ SFVobsOnPathScattering
 #scenarioLauncher
 #)
 
-
+add_library(UnityExecutor src/Executor/UnityExecutor.cpp)
+target_link_libraries(UnityExecutor ${catkin_LIBRARIES}
+#scenarioLauncher
+)
 
 #############
 #### MAIN ###
