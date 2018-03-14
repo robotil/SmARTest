@@ -10,15 +10,13 @@ find_package(Boost REQUIRED COMPONENTS system thread filesystem)
 
 find_package(OpenCV REQUIRED)
                             
-find_package(Gazebo REQUIRED)
-
 FIND_PACKAGE(PythonLibs 2.7 REQUIRED)
 
 SET(TinyXML_LIBs  "/usr/lib/x86_64-linux-gnu/libtinyxml.so" CACHE FILEPATH "links to tinyXML")
 SET(TinyXML_INCLUDE_DIR "/usr/inlude" CACHE FILEPATH "include files for tinyXML")
 
 SET(BOOST_LIBs "${BOOST_SYSTEM_LIBRARY_RELEASE} ${BOOST_FILESYSTEM_LIBRARY_RELEASE}")                                                                                                                                          
-include_directories(include ${GAZEBO_INCLUDE_DIRS} ${TinyXML_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${PYTHON_INCLUDE_DIR} /usr/include/sdformat-4.3/sdf )
+include_directories(include ${TinyXML_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${PYTHON_INCLUDE_DIR} /usr/include/sdformat-4.3/sdf )
 
 
 ############
@@ -79,78 +77,67 @@ sfvSubGroup
 )
 
 add_library(SFVpath src/SFV/SFVpath.cpp)
-target_link_libraries(SFVpath ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVpath 
 ScenarioFeature
 sfvSubGroup
 SFVwp
 )
 
 add_library(SFVmass_link src/SFV/SFVmass_link.cpp)
-target_link_libraries(SFVmass_link ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVmass_link 
 sfvSubGroup
 )
 
 add_library(SFVfriction_link src/SFV/SFVfriction_link.cpp)
-target_link_libraries(SFVfriction_link ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVfriction_link 
 sfvSubGroup
 )
 
 add_library(SFVsensor_link src/SFV/SFVsensor_link.cpp)
-target_link_libraries(SFVsensor_link ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVsensor_link 
 sfvSubGroup
 )
 
 
 add_library(SFVterraine src/SFV/SFVterraine.cpp)
-target_link_libraries(SFVterraine ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVterraine 
 sfvSubGroup
 )
 
 
 add_library(SFVObject src/SFV/SFVObject.cpp)
-target_link_libraries(SFVObject ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVObject 
 sfvSubGroup
 )
 
 add_library(SFVobjScattering src/SFV/SFVobjScattering.cpp)
-target_link_libraries(SFVobjScattering ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVobjScattering 
 sfvSubGroup
 SFVObject
 )
 
 add_library(SFVobstacaleOnPath src/SFV/SFVobstacaleOnPath.cpp)
-target_link_libraries(SFVobstacaleOnPath ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVobstacaleOnPath 
 sfvSubGroup
 ScenarioFeatureGroup
 )
 
 add_library(SFVobsOnPathScattering src/SFV/SFVobsOnPathScattering.cpp)
-target_link_libraries(SFVobsOnPathScattering ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVobsOnPathScattering 
 sfvSubGroup
 SFVobstacaleOnPath
 )
 
 
 add_library(SFVplatformPose src/SFV/SFVplatformPose.cpp)
-target_link_libraries(SFVplatformPose ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFVplatformPose 
 sfvSubGroup
 ResourceHandler
 )
 
 
 add_library(SFV src/SFV/SFV.cpp)
-target_link_libraries(SFV ${Boost_LIBRARIES}
-${TinyXML_LIBs}
+target_link_libraries(SFV 
 ScenarioFeatureGroup
 sfvSubGroup
 SFVpath
@@ -172,17 +159,8 @@ UnityExecutor
 # GENERATORS #
 ##############
 
-
-
-#add_library(GazeboExecutor src/Executor/GazeboExecutor.cpp)
-#target_link_libraries(GazeboExecutor ${catkin_LIBRARIES}
-#scenarioLauncher
-#)
-
 add_library(UnityExecutor src/Executor/UnityExecutor.cpp)
-target_link_libraries(UnityExecutor ${Boost_LIBRARIES}
-${TinyXML_LIBs}
-#scenarioLauncher
+target_link_libraries(UnityExecutor
 )
 
 #############
@@ -191,7 +169,6 @@ ${TinyXML_LIBs}
 
 add_executable(mainGen src/Main.cpp)
 target_link_libraries(mainGen 
-${Boost_LIBRARIES}
 ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 ${Boost_SYSTEM_LIBRARY_RELEASE}
 ${TinyXML_LIBs}
@@ -201,25 +178,5 @@ SFDPobj
 SFV
 #GazeboScenarioGenerator
 )
-
-
-######################
-#### Replay Player ###
-######################
-#add_executable(ReplayPlayer src/ReplayPlayer/ReplayPlayer.cpp)
-#target_link_libraries(ReplayPlayer ${catkin_LIBRARIES}
-#)
-
-
-
-###############
-#### grader ###
-###############
-#add_executable(grader_node src/Grader/grader_node.cpp)
-#target_link_libraries(grader_node ${catkin_LIBRARIES}
-#SFV
-#ResourceHandler
-#/usr/lib/x86_64-linux-gnu/libsdformat.so #${SDF_LIBRARIES}
-#)
 
 
