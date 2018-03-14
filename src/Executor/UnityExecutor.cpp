@@ -6,7 +6,7 @@
 #include "SFV/SFV.h"
 #include "Resource/ResourceHandler.h"
 
-#include "ros/ros.h"
+//#include "ros/ros.h"
 
 #include <tinyxml.h>
 #include "utils/TinyXmlDef.h"
