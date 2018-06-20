@@ -2,7 +2,7 @@
 #define UNITYXECUTOR_H_
 
 #include <string>
-#include "Executor/scenarioLauncher.h"
+//#include "Executor/scenarioLauncher.h"
 #include "SFV/SFV.h"
 
 
@@ -15,7 +15,7 @@ class UnityExecutor {
 
 		bool was_executed_flag;
 
-		ScenarioLauncher *my_launcher;
+		//ScenarioLauncher *my_launcher;
 
 	public :
 		UnityExecutor(SFV *sfv);

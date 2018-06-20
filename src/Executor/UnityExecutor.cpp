@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "Executor/UnityExecutor.h"
-#include "Executor/scenarioLauncher.h"
+//#include "Executor/scenarioLauncher.h"
 #include "SFV/SFV.h"
 #include "Resource/ResourceHandler.h"
 
@@ -35,7 +35,7 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 {
     std::cout << " my_Scenario_folder_url = "<< my_Scenario_folder_url << std::endl;
     
-    std::string s = "/home/robil/ConvoyUnity/builds/SmARTest_Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
+    std::string s = "/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
 	std::cout << s << std::endl;
 	system(s.c_str());
 

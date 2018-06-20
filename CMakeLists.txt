@@ -8,15 +8,15 @@ find_package(Boost REQUIRED COMPONENTS system thread filesystem)
 
 #find_package(TinyXML REQUIRED)
 
-find_package(OpenCV REQUIRED)
+#find_package(OpenCV REQUIRED)
                             
-FIND_PACKAGE(PythonLibs 2.7 REQUIRED)
+#FIND_PACKAGE(PythonLibs 2.7 REQUIRED)
 
 SET(TinyXML_LIBs  "/usr/lib/x86_64-linux-gnu/libtinyxml.so" CACHE FILEPATH "links to tinyXML")
 SET(TinyXML_INCLUDE_DIR "/usr/inlude" CACHE FILEPATH "include files for tinyXML")
 
 SET(BOOST_LIBs "${BOOST_SYSTEM_LIBRARY_RELEASE} ${BOOST_FILESYSTEM_LIBRARY_RELEASE}")                                                                                                                                          
-include_directories(include ${TinyXML_INCLUDE_DIR} ${Boost_INCLUDE_DIR} ${PYTHON_INCLUDE_DIR} /usr/include/sdformat-4.3/sdf )
+include_directories(include ${TinyXML_INCLUDE_DIR} ${Boost_INCLUDE_DIR}) # ${PYTHON_INCLUDE_DIR} /usr/include/sdformat-4.3/sdf )
 
 
 ############

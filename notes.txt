@@ -5,7 +5,13 @@ cmake ..
 make
 
 
-Command line to generate scenario:
-cd ~smartest;
+Target Unity executable :~/ConvoyUnity/builds/Convoy.x86_64 
 
-build/devel/lib/smartest/mainGen -genSFV SFDP/convoy.SFDP work_space/scenario_2 resource/resource_convoy.xml
+
+Command line to generate scenario:
+cd ~Smartest;
+
+build/mainGen -genSFV SFDP/convoy.SFDP work_space/scenario_1 resource/resource_convoy.xml
+
+build/mainGen -MultipleScensGenRun SFDP/convoy.SFDP work_space resource/resource_convoy.xml 5
+
