@@ -11,8 +11,9 @@
 void printUsage()
 {
 	std::cout << "usage:" <<std::endl;
-	std::cout <<"(1) <srvss> -genSFV <sdfp file> <sfv output> <resousc file> # will generate a sfv file according to the sfdp and resource files input " <<std::endl;
-	std::cout <<"(2) <srvss> -genSCEN <sfv output> <destination folder> <resousc file> # will generate the scenario and launch it" <<std::endl;
+	std::cout <<"(0) <mainGen> -help # print this " <<std::endl;
+	std::cout <<"(1) <mainGen> -genSFV <sdfp file> <sfv output> <resource file> # will generate a sfv file according to the sfdp and resource files input " <<std::endl;
+	std::cout <<"(2) <mainGen> -genSCEN <sfv output> <destination folder> <resource file> # will generate the scenario and launch it" <<std::endl;
 	exit(1);
 }
 
@@ -22,6 +23,11 @@ int main(int argc, char** argv)
 
 	std::cout << " Main is runing !!! " << std::endl;
 
+    if (argc < 2)  {
+		std::cout <<"Needs arguments" <<std::endl;
+		printUsage();
+	}
+    
 	if(std::string(argv[1]).compare("-help")==0)
 		{
 		printUsage();
@@ -62,7 +68,7 @@ int main(int argc, char** argv)
 
 	if(std::string(argv[1]).compare("-MultipleScensGenRun")==0)
 		{
-			std::cout << " -OtomaticScensGenRun is runing !!! " << std::endl;
+			std::cout << " -AutomaticScensGenRun is runing !!! " << std::endl;
 
 			std::string SFDP_file_path = PATH+argv[2];
 			std::string scenario_folder_path = PATH + argv[3];
@@ -84,26 +90,11 @@ int main(int argc, char** argv)
 			return 0;
 		}
 
+
+
+
+
 /*
-	if(std::string(argv[1]).compare("-genSCEN")==0)
-		{
-
-			std::cout << " -genSCEN is runing !!! " << std::endl;
-
-			std::string sfv_file_path = PATH+argv[2];
-			std::string scenarios_folder_path = PATH + argv[3];
-
-			SFV *sfv = new SFV(sfv_file_path,scenarios_folder_path);
-
-			sfv->generate();
-
-			return 0;
-		}
-
-
-
-
-
 
 	if(std::string(argv[1]).compare("-DomainEploretion")==0)
 		{

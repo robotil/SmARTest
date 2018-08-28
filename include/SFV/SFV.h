@@ -71,7 +71,7 @@ class SFV {
 
 		inline SFDPobj * get_SFDP()
 			{
-			if (my_SFDP == 0) { std::cout << " the is no SFDP perent defined for this SFV, it probably was created from file " << std::endl; return(0); }
+			if (my_SFDP == 0) { std::cout << " the is no SFDP parent defined for this SFV, it probably was created from file " << std::endl; return(0); }
 			else { return(my_SFDP); }
 			}
 
