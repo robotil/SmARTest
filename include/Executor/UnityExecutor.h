@@ -3,8 +3,9 @@
 
 #include <string>
 //#include "Executor/scenarioLauncher.h"
-#include "SFV/SFV.h"
 
+
+#include "SFV/SFV.h"
 
 class UnityExecutor {
 	private :
@@ -14,15 +15,16 @@ class UnityExecutor {
 		std::string my_pyInterface;
 
 		bool was_executed_flag;
-
+        int m_pid;
 		//ScenarioLauncher *my_launcher;
+		int m_scenario_duration;
 
 	public :
 		UnityExecutor(SFV *sfv);
 		~UnityExecutor();
 
 		int RunScenario(int argc, char** argv);
-
+        int TerminateScenario();
 		inline bool get_wasExecutedFlag()
 			{	return was_executed_flag; }
 };

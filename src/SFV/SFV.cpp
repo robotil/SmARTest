@@ -52,7 +52,7 @@ SFV::SFV(SFDPobj * SFDP, std::string ws_folder_url)
 
 
 SFV::SFV(std::string SFV_file_name, std::string ws_folder_url)
-{/*
+{
 	my_SFDP = 0;
 	my_ws_folder_url = ws_folder_url;
 	was_rolled_flag=true;
@@ -104,7 +104,7 @@ SFV::SFV(std::string SFV_file_name, std::string ws_folder_url)
 			}
 		}
 	std::cout << "my_resource_file_url = " << my_resource_file_url <<std::endl;
-*/}
+}
 
 
 template <class T>

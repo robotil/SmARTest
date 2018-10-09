@@ -3,7 +3,7 @@
 #include <string>
 #include <boost/filesystem.hpp>
 
-#include "SFDP/SFDPobj.h"
+#include "/home/robil/ws/src/SmARTest/include/SFDP/SFDPobj.h"
 #include "Generators/Gazebo/GazeboScenarioGenerator.h"
 
 #define PATH std::string("")
@@ -12,8 +12,16 @@ void printUsage()
 {
 	std::cout << "usage:" <<std::endl;
 	std::cout <<"(0) <mainGen> -help # print this " <<std::endl;
-	std::cout <<"(1) <mainGen> -genSFV <sdfp file> <sfv output> <resource file> # will generate a sfv file according to the sfdp and resource files input " <<std::endl;
-	std::cout <<"(2) <mainGen> -genSCEN <sfv output> <destination folder> <resource file> # will generate the scenario and launch it" <<std::endl;
+	std::cout <<"(1) <mainGen> -genSFV <sfdp file> <scenario folder> <resource file> " <<std::endl;
+	std::cout <<" Will generate a sfv file according to the sfdp and resource files input " <<std::endl;
+	std::cout <<" Example: mainGen -genSFV SFDP/convoy.SFDP work_space/scenario_2 resource/resource_convoy.xml" <<std::endl;
+	std::cout <<"(2) <mainGen> -MultipleScensGenRun <sfdp file> <destination folder> <resource file> <number of scenarios> " <<std::endl;
+	std::cout <<" Will generate the <number of scenarios> scenarios and launch them, one after the other" <<std::endl;
+	std::cout <<" Example: mainGen -MultipleScensGenRun SFDP/convoy.SFDP work_space resource/resource_convoy.xml 5" << std::endl;
+	std::cout <<"(3) <mainGen> -ScenarioReplications <sfdp file> <scenario folder> <resource file> " <<std::endl;
+	std::cout <<" Will launch the scenario in the scenario folder" <<std::endl;
+	std::cout <<" Example: mainGen -ScenarioReplications SFDP/convoy.SFDP work_space/sampl_2 resource/resource_convoy.xml" <<std::endl;
+
 	exit(1);
 }
 
@@ -68,7 +76,7 @@ int main(int argc, char** argv)
 
 	if(std::string(argv[1]).compare("-MultipleScensGenRun")==0)
 		{
-			std::cout << " -AutomaticScensGenRun is runing !!! " << std::endl;
+			std::cout << " -AutomaticScensGenRun is running !!! " << std::endl;
 
 			std::string SFDP_file_path = PATH+argv[2];
 			std::string scenario_folder_path = PATH + argv[3];
@@ -90,7 +98,23 @@ int main(int argc, char** argv)
 			return 0;
 		}
 
+	if(std::string(argv[1]).compare("-ScenarioReplications")==0)
+		{
+			std::cout << " -ScenarioReplications is running !!! " << std::endl;
 
+			std::string SFDP_file_path = PATH+argv[2];
+			std::string scenario_folder_path = PATH + argv[3];
+			std::string resources_file_path = PATH + argv[4]; 
+			std::string SFV_root_file = scenario_folder_path+"/scen.SFV";
+            std::string grade = scenario_folder_path+"/grades.txt";
+            if (boost::filesystem::exists(grade)){
+				boost::filesystem::remove(grade);
+			}
+            SFV * sfv = new SFV(SFV_root_file,scenario_folder_path);
+            sfv->execute(argc,argv);
+			  
+			return 0;
+		}
 
 
 
