@@ -18,9 +18,9 @@ void printUsage()
 	std::cout <<"(2) <mainGen> -MultipleScensGenRun <sfdp file> <destination folder> <resource file> <number of scenarios> " <<std::endl;
 	std::cout <<" Will generate the <number of scenarios> scenarios and launch them, one after the other" <<std::endl;
 	std::cout <<" Example: mainGen -MultipleScensGenRun SFDP/convoy.SFDP work_space resource/resource_convoy.xml 5" << std::endl;
-	std::cout <<"(3) <mainGen> -ScenarioReplications <sfdp file> <scenario folder> <resource file> " <<std::endl;
+	std::cout <<"(3) <mainGen> -ScenarioReplications <sfdp file> <scenario folder>" <<std::endl;
 	std::cout <<" Will launch the scenario in the scenario folder" <<std::endl;
-	std::cout <<" Example: mainGen -ScenarioReplications SFDP/convoy.SFDP work_space/sampl_2 resource/resource_convoy.xml" <<std::endl;
+	std::cout <<" Example: mainGen -ScenarioReplications SFDP/convoy.SFDP work_space/sampl_2" <<std::endl;
 
 	exit(1);
 }
@@ -28,10 +28,7 @@ void printUsage()
 
 int main(int argc, char** argv)
 {
-
-	std::cout << " Main is runing !!! " << std::endl;
-
-    if (argc < 2)  {
+    if (argc < 4)  {
 		std::cout <<"Needs arguments" <<std::endl;
 		printUsage();
 	}
@@ -41,12 +38,20 @@ int main(int argc, char** argv)
 		printUsage();
 		}
 
+	std::cout << " Main is runing !!! " << std::endl;
+    std::string SFDP_file_path = PATH+argv[2];
+	std::string scenario_folder_path = PATH + argv[3];
+	
+    
 	if(std::string(argv[1]).compare("-genSFV")==0)
 		{
-			std::cout << " -genSFV is runing !!! " << std::endl;
+			if (argv[4] == NULL){
+				printUsage();
+				return 0;
+			}
 
-			std::string SFDP_file_path = PATH+argv[2];
-			std::string scenario_folder_path = PATH + argv[3];
+			std::cout << " -genSFV: Generate Scenario " << std::endl;
+
 			std::string resources_file_path = PATH + argv[4];
 
 			SFDPobj * sfdp_root;
@@ -76,10 +81,11 @@ int main(int argc, char** argv)
 
 	if(std::string(argv[1]).compare("-MultipleScensGenRun")==0)
 		{
+            if ((argv[4] == NULL) || (argv[5] == NULL)){
+				printUsage();
+				return 0;
+			}
 			std::cout << " -AutomaticScensGenRun is running !!! " << std::endl;
-
-			std::string SFDP_file_path = PATH+argv[2];
-			std::string scenario_folder_path = PATH + argv[3];
 			std::string resources_file_path = PATH + argv[4];
 			int num_of_scens = atoi(argv[5]);
 
@@ -102,9 +108,6 @@ int main(int argc, char** argv)
 		{
 			std::cout << " -ScenarioReplications is running !!! " << std::endl;
 
-			std::string SFDP_file_path = PATH+argv[2];
-			std::string scenario_folder_path = PATH + argv[3];
-			std::string resources_file_path = PATH + argv[4]; 
 			std::string SFV_root_file = scenario_folder_path+"/scen.SFV";
             std::string grade = scenario_folder_path+"/grades.txt";
             if (boost::filesystem::exists(grade)){

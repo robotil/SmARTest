@@ -1,6 +1,6 @@
 /*
  * SFDPobj.h
- *
+ * Scenario Features Definition Parameters
  *  Created on: Jul 1, 2014
  *      Author: userws3
  */
@@ -13,8 +13,8 @@
 #include <map>
 #include <tinyxml.h>
 
-#include "SFDP/ScenarioFeatureGroup.h"
-#include "SFDP/ScenarioFeatureType.h"
+#include "ScenarioFeatureGroup.h"
+#include "ScenarioFeatureType.h"
 #include "ScenarioFeatureDistributionType.h"
 
 #include "SFV/SFV.h"
@@ -37,7 +37,7 @@ class SFDPobj {
 		std::vector<float> * my_Grades_stds;
 
 		std::vector<SFDPobj *> * my_sub_SFDPs;			// vector of sub SFDPs
-		ScenarioFeature * my_ExploretionFeature;		// the feature that is explored (the split performed on it)
+		ScenarioFeature * my_ExplorationFeature;		// the feature that is explored (the split performed on it)
 		int my_DivisionLimit;							// the limit of root SFDP devisions in exploration process
 		int my_division_level;
 
@@ -73,11 +73,11 @@ class SFDPobj {
 		inline std::string get_WS_url()
 			{ return my_WS_url; }
 
-		inline int set_ExploretionFeature(ScenarioFeature * exploretion_feature)
-			{ my_ExploretionFeature = exploretion_feature; return 1;}
+		inline int set_ExplorationFeature(ScenarioFeature * exploration_feature)
+			{ my_ExplorationFeature = exploration_feature; return 1;}
 
 		inline ScenarioFeature * get_ExploretionFeature()
-			{ return my_ExploretionFeature; }
+			{ return my_ExplorationFeature; }
 
 		inline int get_division_level()
 			{ return my_division_level; }

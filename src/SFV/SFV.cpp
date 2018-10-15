@@ -1,4 +1,4 @@
-#include "SFV/SFV.h"
+#include "../../include/SFV/SFV.h"
 //#include "SFDP/SFDPobj.h"
 #include "SFV/sfvSubGroup.h"
 #include "SFV/SFVpath.h"
@@ -30,6 +30,7 @@
 class sfvSubGroup;
 SFV::SFV(SFDPobj * SFDP, std::string ws_folder_url)
 {
+	std::cout << "New SFV for " << ws_folder_url << std::endl;
 	my_SFDP = SFDP;
 	my_resource_file_url = SFDP->get_Resources_file_url();
 	my_ws_folder_url = ws_folder_url;
@@ -38,10 +39,10 @@ SFV::SFV(SFDPobj * SFDP, std::string ws_folder_url)
 
 	my_sfvSubGroups = new std::vector<sfvSubGroup *>;
 	for (ScenarioFeatureGroup * featureGroup_it : * (my_SFDP->get_FeatureGroups()) )
-		{
-		Populate_mySFVsubGroups<ScenarioFeatureGroup *>(featureGroup_it->get_featureGroupType(), featureGroup_it);
-		std::cout << "featureGroup_it->get_name() = " << featureGroup_it->get_name() << std::endl;
-		}
+	{
+		   Populate_mySFVsubGroups<ScenarioFeatureGroup *>(featureGroup_it->get_featureGroupType(), featureGroup_it);
+		   std::cout << "featureGroup_it->get_name() = " << featureGroup_it->get_name() << std::endl;
+	}
 
 	my_rules = new std::vector<Rule *>;
 	//my_rules->push_back(new Rule_platform_init_pose_with_no_obj_colisions);
@@ -108,40 +109,40 @@ SFV::SFV(std::string SFV_file_name, std::string ws_folder_url)
 
 
 template <class T>
-void SFV::Populate_mySFVsubGroups(ScenarioFeatureGroupType::optional scenarioFeatureType , T fatures_data)
+void SFV::Populate_mySFVsubGroups(ScenarioFeatureGroupType::optional scenarioFeatureType , T features_data)
 {
 	 switch (scenarioFeatureType.get().value())
 	 	 {
 	 	 	 case(ScenarioFeatureGroupType::map) :
-				my_sfvSubGroups->push_back( new SFVterraine(fatures_data, this) );
+				my_sfvSubGroups->push_back( new SFVterraine(features_data, this) );
 		 		break;
 
 		 	 case(ScenarioFeatureGroupType::objects) :
-				my_sfvSubGroups->push_back( new SFVobjScattering(fatures_data, this) );
+				my_sfvSubGroups->push_back( new SFVobjScattering(features_data, this) );
 		 	 	break;
 
 		 	 case(ScenarioFeatureGroupType::platform_pose) :
-				my_sfvSubGroups->push_back( new SFVplatformPose(fatures_data, this) );
+				my_sfvSubGroups->push_back( new SFVplatformPose(features_data, this) );
 		 	 	break;
 
 		 	 case(ScenarioFeatureGroupType::Path) :
-				my_sfvSubGroups->push_back( new SFVpath(fatures_data, this) );
+				my_sfvSubGroups->push_back( new SFVpath(features_data, this) );
 		 		break;
 
 		 	 case(ScenarioFeatureGroupType::obstacles_on_path) :
-				my_sfvSubGroups->push_back( new SFVobsOnPathScattering(fatures_data, this) );
+				my_sfvSubGroups->push_back( new SFVobsOnPathScattering(features_data, this) );
 		 		break;
 
 		 	 case(ScenarioFeatureGroupType::mass_link_i) :
-				my_sfvSubGroups->push_back( new SFVmass_link(fatures_data, this) );
+				my_sfvSubGroups->push_back( new SFVmass_link(features_data, this) );
 		 		break;
 
 		 	 case(ScenarioFeatureGroupType::friction_link_i) :
-				my_sfvSubGroups->push_back( new SFVfriction_link(fatures_data, this) );
+				my_sfvSubGroups->push_back( new SFVfriction_link(features_data, this) );
 		 		break;
 
 		 	 case(ScenarioFeatureGroupType::sensor_link_i) :
-				my_sfvSubGroups->push_back( new SFVsensor_link(fatures_data, this) );
+				my_sfvSubGroups->push_back( new SFVsensor_link(features_data, this) );
 		 		break;
 	 	 }
 }

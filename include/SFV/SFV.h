@@ -1,6 +1,6 @@
 /*
  * SFV.h
- *
+ *  Scenario Features Vector
  *  Created on: Jul 30, 2014
  *      Author: userws3
  */
@@ -12,7 +12,7 @@
 #include <vector>
 #include <string>
 
-#include "SFDP/ScenarioFeatureGroupType.h"
+#include "../SFDP/ScenarioFeatureGroupType.h"
 #include "SFV/sfvSubGroup.h"
 
 #include "SFDP/SFDPobj.h"

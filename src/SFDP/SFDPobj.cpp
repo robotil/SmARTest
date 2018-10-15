@@ -1,4 +1,4 @@
-#include "SFDP/SFDPobj.h"
+#include "../../include/SFDP/SFDPobj.h"
 #include "SFV/SFV.h"
 //#include "Generators/Gazebo/GazeboScenarioGenerator.h"
 //#include "Executor/GazeboExecutor.h"
@@ -30,7 +30,7 @@ SFDPobj::SFDPobj(std::string SFDP_file_url, std::string Resources_file_url, std:
 	my_sampled_SFVs = new std::vector<SFV *>;
 	my_sub_SFDPs = new std::vector<SFDPobj *>;
 
-	my_ExploretionFeature = new ScenarioFeature();
+	my_ExplorationFeature = new ScenarioFeature();
 
 	my_Grades_means = new std::vector<float>;
 	my_Grades_stds = new std::vector<float>;
@@ -67,8 +67,8 @@ int SFDPobj::ParseMeFromXMLFile()
 			ScenarioFeatureGroup *featureGroup=new ScenarioFeatureGroup();
 			if ( featureGroup->parseScenarioFeatureGroupFromXML(SFDP_Child) )
 				{
-				my_featureGroups->push_back(featureGroup);
-				std::cout << "featureGroup->get_name() = " << featureGroup->get_name() << std::endl; 
+					my_featureGroups->push_back(featureGroup);
+					std::cout << "featureGroup->get_name() = " << featureGroup->get_name() << std::endl; 
 				}
 			else
 				{
@@ -275,8 +275,8 @@ TiXmlElement * SFDPobj::GetResultsInXML()
 	} */
 
 	TiXmlElement * resultsXML = new TiXmlElement("subSFDP_results");
-	resultsXML->SetAttribute("dist_param_1", std::to_string(my_ExploretionFeature->get_dist_param_1()));
-	resultsXML->SetAttribute("dist_param_2", std::to_string(my_ExploretionFeature->get_dist_param_2()));
+	resultsXML->SetAttribute("dist_param_1", std::to_string(my_ExplorationFeature->get_dist_param_1()));
+	resultsXML->SetAttribute("dist_param_2", std::to_string(my_ExplorationFeature->get_dist_param_2()));
 
 	if (have_been_run)
 	  {
@@ -376,11 +376,11 @@ int SFDPobj::SplitMe(ScenarioFeatureGroupType GroupTipe, std::string GroupName ,
 
 	sub_sfdp1 = new SFDPobj(sub_sfdp_1_WS_url+"sub_sfdp",my_Resources_file_url,sub_sfdp_1_WS_url,my_division_level+1);
 	sub_sfdp1->set_FeatureGroups(this->get_FeatureGroups());
-	sub_sfdp1->set_ExploretionFeature(sub_sfdp1->finedScenrioFeature(GroupTipe,GroupName,FeatureToSplit));
+	sub_sfdp1->set_ExplorationFeature(sub_sfdp1->finedScenrioFeature(GroupTipe,GroupName,FeatureToSplit));
 
 	sub_sfdp2 = new SFDPobj(sub_sfdp_2_WS_url+"sub_sfdp",my_Resources_file_url,sub_sfdp_2_WS_url,my_division_level+1);
 	sub_sfdp2->set_FeatureGroups(this->get_FeatureGroups());
-	sub_sfdp2->set_ExploretionFeature(sub_sfdp2->finedScenrioFeature(GroupTipe,GroupName,FeatureToSplit));
+	sub_sfdp2->set_ExplorationFeature(sub_sfdp2->finedScenrioFeature(GroupTipe,GroupName,FeatureToSplit));
 
 
 	ScenarioFeature * feature_sourse = this->get_ExploretionFeature(); // this->finedScenrioFeature(GroupTipe,GroupName,FeatureToSplit);
@@ -430,7 +430,7 @@ int SFDPobj::SplitMe(ScenarioFeatureGroupType GroupTipe, std::string GroupName ,
 int SFDPobj::ExploreMe(int argc, char** argv, int division_limit, int samples_number)
 {
     this->set_DivisionLimit(division_limit);
-	this->set_ExploretionFeature(this->finedScenrioFeature(ScenarioFeatureGroupType::obstacles_on_path,"obstacles_on_path" ,ScenarioFeatureType::number_of_obstacles_on_path));
+	this->set_ExplorationFeature(this->finedScenrioFeature(ScenarioFeatureGroupType::obstacles_on_path,"obstacles_on_path" ,ScenarioFeatureType::number_of_obstacles_on_path));
 
 	if ( (! get_ExploretionFeature()))
 		{
