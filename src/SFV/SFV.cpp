@@ -48,7 +48,6 @@ SFV::SFV(SFDPobj * SFDP, std::string ws_folder_url)
 	//my_rules->push_back(new Rule_platform_init_pose_with_no_obj_colisions);
 	//my_rules->push_back(new Rule_wp_path_inside_map);
 
-	SubGroupsBayFeatureGroupType_ReturnVec = new std::vector<sfvSubGroup *>;
 }
 
 
@@ -59,7 +58,6 @@ SFV::SFV(std::string SFV_file_name, std::string ws_folder_url)
 	was_rolled_flag=true;
 	my_rules=0;
 	my_sfvSubGroups = new std::vector<sfvSubGroup *>;
-	SubGroupsBayFeatureGroupType_ReturnVec = new std::vector<sfvSubGroup *>;
 
 	//Loading file
 	TiXmlDocument *SFVfile = new TiXmlDocument(SFV_file_name);

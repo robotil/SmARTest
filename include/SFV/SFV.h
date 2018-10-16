@@ -40,9 +40,7 @@ class SFV {
 		bool was_executed_flag;
 		//std_msgs::Float32MultiArray::ConstPtr  my_grades;
 
-		std::vector<sfvSubGroup*> * SubGroupsBayFeatureGroupType_ReturnVec;
-
-	public:
+		public:
 		SFV(SFDPobj * SFDP, std::string ws_folder_url);
 		SFV(std::string SFV_file_name, std::string ws_folder_url);
 

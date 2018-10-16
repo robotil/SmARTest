@@ -18,9 +18,9 @@ void printUsage()
 	std::cout <<"(2) <mainGen> -MultipleScensGenRun <sfdp file> <destination folder> <resource file> <number of scenarios> " <<std::endl;
 	std::cout <<" Will generate the <number of scenarios> scenarios and launch them, one after the other" <<std::endl;
 	std::cout <<" Example: mainGen -MultipleScensGenRun SFDP/convoy.SFDP work_space resource/resource_convoy.xml 5" << std::endl;
-	std::cout <<"(3) <mainGen> -ScenarioReplications <sfdp file> <scenario folder>" <<std::endl;
-	std::cout <<" Will launch the scenario in the scenario folder" <<std::endl;
-	std::cout <<" Example: mainGen -ScenarioReplications SFDP/convoy.SFDP work_space/sampl_2" <<std::endl;
+	std::cout <<"(3) <mainGen> -RunScenario <sfdp file> <scenario folder>" <<std::endl;
+	std::cout <<" Will run the scenario defined in the parameter scenario folder" <<std::endl;
+	std::cout <<" Example: mainGen -RunScenario SFDP/convoy.SFDP work_space/sampl_2" <<std::endl;
 
 	exit(1);
 }
@@ -85,7 +85,7 @@ int main(int argc, char** argv)
 				printUsage();
 				return 0;
 			}
-			std::cout << " -AutomaticScensGenRun is running !!! " << std::endl;
+			std::cout << " -MultipleScensGenRun Generate and Run multiple scenarios !!! " << std::endl;
 			std::string resources_file_path = PATH + argv[4];
 			int num_of_scens = atoi(argv[5]);
 
@@ -104,9 +104,9 @@ int main(int argc, char** argv)
 			return 0;
 		}
 
-	if(std::string(argv[1]).compare("-ScenarioReplications")==0)
+	if(std::string(argv[1]).compare("-RunScenario")==0)
 		{
-			std::cout << " -ScenarioReplications is running !!! " << std::endl;
+			std::cout << " -RunScenario is running !!! " << std::endl;
 
 			std::string SFV_root_file = scenario_folder_path+"/scen.SFV";
             std::string grade = scenario_folder_path+"/grades.txt";
@@ -119,7 +119,8 @@ int main(int argc, char** argv)
 			return 0;
 		}
 
-
+    printUsage();
+	return 1;
 
 /*
 

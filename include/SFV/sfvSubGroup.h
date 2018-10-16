@@ -30,8 +30,8 @@ class sfvSubGroup
 
 		std::map<ScenarioFeatureType,ScenarioFeature **> * my_features_map;
 		bool was_rolled_flag;
-	public:
 
+	public:
 		inline sfvSubGroup(ScenarioFeatureGroupType type, SFV * parent_SFV)
 			{
 			my_type = type;
