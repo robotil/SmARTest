@@ -12,13 +12,13 @@ void printUsage()
 {
 	std::cout << "usage:" <<std::endl;
 	std::cout <<"(0) <mainGen> -help # print this " <<std::endl;
-	std::cout <<"(1) <mainGen> -genSFV <sfdp file> <scenario folder> <resource file> " <<std::endl;
+	std::cout <<"(1) <mainGen> -genSFV <sfdp file> <full path to scenario folder> <resource file> " <<std::endl;
 	std::cout <<" Will generate a sfv file according to the sfdp and resource files input " <<std::endl;
 	std::cout <<" Example: mainGen -genSFV SFDP/convoy.SFDP work_space/scenario_2 resource/resource_convoy.xml" <<std::endl;
 	std::cout <<"(2) <mainGen> -MultipleScensGenRun <sfdp file> <destination folder> <resource file> <number of scenarios> " <<std::endl;
 	std::cout <<" Will generate the <number of scenarios> scenarios and launch them, one after the other" <<std::endl;
 	std::cout <<" Example: mainGen -MultipleScensGenRun SFDP/convoy.SFDP work_space resource/resource_convoy.xml 5" << std::endl;
-	std::cout <<"(3) <mainGen> -RunScenario <sfdp file> <scenario folder>" <<std::endl;
+	std::cout <<"(3) <mainGen> -RunScenario <sfdp file> <full path to scenario folder>" <<std::endl;
 	std::cout <<" Will run the scenario defined in the parameter scenario folder" <<std::endl;
 	std::cout <<" Example: mainGen -RunScenario SFDP/convoy.SFDP work_space/sampl_2" <<std::endl;
 

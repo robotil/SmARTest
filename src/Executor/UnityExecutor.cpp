@@ -53,6 +53,7 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\stopOCU.bat";
 	system(s.c_str());
 	std::cout << s << std::endl;
+	//Add some sleep
 	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\startps.bat";
 	system(s.c_str());
 	std::cout << s << std::endl;
@@ -60,6 +61,7 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 	system(s.c_str());
 	std::cout << s << std::endl;
 	std::cout << " my_Scenario_folder_url = "<< my_Scenario_folder_url << std::endl;
+	//Check path expansion if possible
 	s = "echo Robil12 | sudo -S /home/robil/Convoy/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
     //std::string s = "/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
     //std::string s = "/bin/sh -c \"/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url + "\"";//+ " &";  +"/scen.SFV";
