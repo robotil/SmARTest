@@ -46,8 +46,22 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 {
 	io_service i;
     deadline_timer t(i);
+	std::string s;
+	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\downps.bat";
+	std::cout << s << std::endl;
+	system(s.c_str());
+	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\stopOCU.bat";
+	system(s.c_str());
+	std::cout << s << std::endl;
+	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\startps.bat";
+	system(s.c_str());
+	std::cout << s << std::endl;
+	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\startOCU.bat";
+	system(s.c_str());
+	std::cout << s << std::endl;
 	std::cout << " my_Scenario_folder_url = "<< my_Scenario_folder_url << std::endl;
-    std::string s = "/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
+	s = "echo Robil12 | sudo -S /home/robil/Convoy/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
+    //std::string s = "/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
     //std::string s = "/bin/sh -c \"/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url + "\"";//+ " &";  +"/scen.SFV";
 	std::string param = "-scenfolder " + my_Scenario_folder_url;
 	std::cout << s << std::endl;

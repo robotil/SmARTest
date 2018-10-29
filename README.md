@@ -23,4 +23,4 @@ build/mainGen -genSFV SFDP/convoy.SFDP work_space/scenario_2 resource/resource_c
 build/mainGen -MultipleScensGenRun SFDP/convoy.SFDP work_space resource/resource_convoy.xml 5
 
 # Command line to play a specific scenario:
-build/mainGen -ScenarioReplications SFDP/convoy.SFDP work_space/sampl_2 resource/resource_convoy.xml
+build/mainGen -RunScenario SFDP/convoy.SFDP work_space/sampl_2 resource/resource_convoy.xml

@@ -3,7 +3,7 @@
 #include <string>
 #include <boost/filesystem.hpp>
 
-#include "/home/robil/ws/src/SmARTest/include/SFDP/SFDPobj.h"
+#include "SFDP/SFDPobj.h"
 #include "Generators/Gazebo/GazeboScenarioGenerator.h"
 
 #define PATH std::string("")

@@ -1,3 +1,0 @@
-// the configured options and settings for Tutorial
-#define smartest_VERSION_MAJOR @smartest_VERSION_MAJOR@
-#define smartest_VERSION_MINOR @smartest_VERSION_MINOR@
