@@ -29,7 +29,7 @@ UnityExecutor::UnityExecutor(SFV *sfv)
 
 	was_executed_flag = false;
     m_pid = 0;
-	m_scenario_duration = 60000;
+	m_scenario_duration = 180000;
 
 	//my_launcher = new ScenarioLauncher(my_pyInterface);
 	//my_launcher->start_launcher();
@@ -46,14 +46,7 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 {
 	io_service i;
     deadline_timer t(i);
-	std::string s;
-	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\downps.bat";
-	std::cout << s << std::endl;
-	system(s.c_str());
-	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\stopOCU.bat";
-	system(s.c_str());
-	std::cout << s << std::endl;
-	//Add some sleep
+    std::string s;
 	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\startps.bat";
 	system(s.c_str());
 	std::cout << s << std::endl;
@@ -62,8 +55,8 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 	std::cout << s << std::endl;
 	std::cout << " my_Scenario_folder_url = "<< my_Scenario_folder_url << std::endl;
 	//Check path expansion if possible
-	s = "echo Robil12 | sudo -S /home/robil/Convoy/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
-    //std::string s = "/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
+	//s = "echo Robil12 | sudo -S /home/robil/Convoy/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
+    s = "/home/robil/Convoy/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
     //std::string s = "/bin/sh -c \"/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url + "\"";//+ " &";  +"/scen.SFV";
 	std::string param = "-scenfolder " + my_Scenario_folder_url;
 	std::cout << s << std::endl;
@@ -100,6 +93,14 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 int UnityExecutor::TerminateScenario()
 {
 	int ret;
+	std::string s;
+	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\downps.bat";
+	std::cout << s << std::endl;
+	system(s.c_str());
+	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\stopOCU.bat";
+	system(s.c_str());
+	std::cout << s << std::endl;
+	//Add some sleep
 	ret = kill(-m_pid, SIGTERM);
 	sleep(2);
 	ret = kill(-m_pid, SIGKILL);
