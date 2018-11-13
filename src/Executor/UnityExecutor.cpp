@@ -137,7 +137,9 @@ int UnityExecutor::PreserveLogs()
 	std::cout<<"Copying /home/robil/.config/unity3d/DefaultCompany/Convoy/Player.log to " << player_log <<std::endl;
 	boost::filesystem::copy("/home/robil/.config/unity3d/DefaultCompany/Convoy/Player.log", player_log);
 	icd_log_path = my_Scenario_folder_url+"/icd_logs";
-	Utilities::copyDirectoryRecursively("/home/robil/icd_log",icd_log_path);
-	//boost::filesystem::copy_directory("/home/robil/icd_log", icd_log_path);
+	//workaround until we will have proper log in ICD
+	if (boost::filesystem::exists("/home/robil/icd_log")){
+		Utilities::copyDirectoryRecursively("/home/robil/icd_log",icd_log_path);
+	}
 
 }

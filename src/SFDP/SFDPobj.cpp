@@ -133,6 +133,7 @@ int SFDPobj::GenMySFVs(int samp_num)
 
 
 		boost::filesystem::remove_all(folder_url);
+	
 		if(! boost::filesystem::create_directory(folder_url))
 			{
 			std::cout << "\033[1;31m failed to create folder for sfv_" << sfv_index << "\033[0m"<< std::endl;
@@ -176,6 +177,10 @@ int SFDPobj::RunMySFVs(int argc, char** argv)
 
 	for (SFV * sfv_it : * my_sampled_SFVs )
 	{
+		//workaround until we will have proper log in ICD
+		if (boost::filesystem::exists("/home/robil/icd_log")){
+		               boost::filesystem::remove_all("/home/robil/icd_log");
+		}
 		sfv_it->execute(argc, argv);
 /*		if (sfv_it->get_WasExecutedFlag())
 			{
