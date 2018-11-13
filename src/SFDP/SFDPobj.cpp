@@ -9,11 +9,16 @@
 #include <iostream>
 
 #include <boost/filesystem.hpp>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <boost/algorithm/string.hpp> // trim
 
 #include <cmath> //sqrt()
 
 #include <tinyxml.h>
 #include "utils/TinyXmlDef.h"
+#include "utils/Utilities.h"
 
 
 
@@ -322,7 +327,38 @@ int SFDPobj::PrintMyResultsToFile()
 	return 1;
 }
 
+int SFDPobj::Summary(int sample_number)
+{
+	namespace fs = boost::filesystem;
+    std::string fileSummary, testSummary, testName, fullPathTest;
+	fileSummary = my_WS_url+"/"+"testSummary.csv";
+	std::string GRADE_DELIMITER = ":";
+	std::string CSV_DELIMITER = ",";
+	std::ofstream ofile;
+    int i;
 
+    //open file to write grades
+	ofile.open(fileSummary, std::ios::out /*| std::ios::app*/ );
+	testSummary="Test#,Grade,Location\n";
+	ofile << testSummary << std::endl;
+	for (i=1;i<=sample_number;i++){
+		testName = "sampl_"+std::to_string(i);
+        fullPathTest = my_WS_url+"/"+testName+"/grades.txt";
+		std::ifstream gradeFile(fullPathTest.c_str());
+		std::string line;
+		getline(gradeFile, line);
+		std::string grade = line.substr(line.find(GRADE_DELIMITER) + 1);
+		boost::trim(grade); //ignore white spaces
+		testSummary = std::to_string(i)+CSV_DELIMITER+grade+CSV_DELIMITER+my_WS_url+"/"+testName+CSV_DELIMITER;
+		std::cout << testSummary << std::endl;
+		ofile << testSummary << std::endl;
+	}
+    ofile.close();
+
+	std::cout << " printing Grades to file : " << fileSummary << " for sample_number " << sample_number << std::endl;
+
+	return 1;
+}
 
 ScenarioFeature * SFDPobj::finedScenrioFeature(ScenarioFeatureGroupType GroupType, std::string GroupName, ScenarioFeatureType FeatureToLocate)
 {
@@ -469,5 +505,7 @@ int SFDPobj::ExploreMe(int argc, char** argv, int division_limit, int samples_nu
 
 	return 1;
 }
+
+
 
 

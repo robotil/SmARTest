@@ -55,6 +55,7 @@ class SFDPobj {
 		TiXmlElement * get_SFVsGradesInXML();
 		TiXmlElement * GetResultsInXML();
 		int PrintMyResultsToFile();
+		int Summary(int samp_num);
 
 //		SFDPobj * ShrinkMe(ScenarioFeatureType * FeatureToShrink, float new_upper_bound_percents, float new_lower_bound_percents);
 		int SplitMe(ScenarioFeatureGroupType GroupTipe, std::string GroupName ,ScenarioFeatureType FeatureToSplit, float split_percents);

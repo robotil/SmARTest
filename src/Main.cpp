@@ -100,7 +100,7 @@ int main(int argc, char** argv)
 
 			sfdp->GenMySFVs(num_of_scens);
 			sfdp->RunMySFVs(argc,argv);
-
+            sfdp->Summary(num_of_scens);
 			return 0;
 		}
 
@@ -116,6 +116,30 @@ int main(int argc, char** argv)
             SFV * sfv = new SFV(SFV_root_file,scenario_folder_path);
             sfv->execute(argc,argv);
 			  
+			return 0;
+		}
+
+	if(std::string(argv[1]).compare("-Debug")==0)
+		{
+            if ((argv[4] == NULL) || (argv[5] == NULL)){
+				printUsage();
+				return 0;
+			}
+			std::cout << " -MultipleScensGenRun Generate and Run multiple scenarios !!! " << std::endl;
+			std::string resources_file_path = PATH + argv[4];
+			int num_of_scens = atoi(argv[5]);
+
+
+			SFDPobj * sfdp;
+			sfdp = new SFDPobj(SFDP_file_path,resources_file_path,scenario_folder_path,0);
+			if (! sfdp->ParseMeFromXMLFile())
+				{
+				std::cout << "\033[1;31m Failed parse SFDP from file \033[0m " << std::endl;
+				return 0;
+				}
+
+			sfdp->Summary(num_of_scens);
+			
 			return 0;
 		}
 
