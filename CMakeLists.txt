@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(smartest)
 
-SET(CMAKE_CXX_FLAGS "-std=c++0x")
+SET(CMAKE_CXX_FLAGS "-std=c++11" )
+#SET(CMAKE_CXX_FLAGS "-std=c++0x" )
 
 
 find_package(Boost REQUIRED COMPONENTS system thread filesystem)
@@ -23,7 +24,7 @@ include_directories(include ${TinyXML_INCLUDE_DIR} ${Boost_INCLUDE_DIR}) # ${PYT
 ## UTILS  ##
 ############
 
-add_library(NumberSampler src/utils/NumberSampler.cpp)
+add_library(Utils src/utils/NumberSampler.cpp src/utils/Utilities.cpp)
 
 
 ##############
@@ -42,7 +43,7 @@ add_library(ScenarioFeatureGroup src/SFDP/ScenarioFeatureGroup.cpp)
 add_library(ScenarioFeature src/SFDP/ScenarioFeature.cpp)
 
 target_link_libraries(ScenarioFeature ${TinyXML_LIBs}
-NumberSampler
+Utils
 )
 
 
@@ -160,7 +161,8 @@ UnityExecutor
 ##############
 
 add_library(UnityExecutor src/Executor/UnityExecutor.cpp)
-target_link_libraries(UnityExecutor
+target_link_libraries(UnityExecutor 
+Utils
 )
 
 #############
@@ -177,6 +179,7 @@ ScenarioFeature
 SFDPobj
 SFV
 #GazeboScenarioGenerator
+Utils
 )
 
 

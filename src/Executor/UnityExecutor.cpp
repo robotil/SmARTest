@@ -1,9 +1,9 @@
 #include <string>
 #include <iostream>
-
 #include <signal.h>
 
 #include "Executor/UnityExecutor.h"
+#include "utils/Utilities.h"
 //#include "Executor/scenarioLauncher.h"
 #include "SFV/SFV.h"
 #include "Resource/ResourceHandler.h"
@@ -17,6 +17,9 @@
 #include <boost/thread.hpp>
 #include <boost/asio.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include "boost/filesystem/operations.hpp"
+#include "boost/filesystem/path.hpp"
+#include "boost/progress.hpp"
 
 using namespace boost::asio;
 
@@ -29,8 +32,15 @@ UnityExecutor::UnityExecutor(SFV *sfv)
 
 	was_executed_flag = false;
     m_pid = 0;
-	m_scenario_duration = 180000;
-
+	char *full_smartest, *scenario_duration_ms;
+	full_smartest = getenv("FULL_SMARTEST");
+	if (full_smartest == (char *)NULL) {	
+		m_is_full_smartest = 1;
+	} else m_is_full_smartest=std::stoi(full_smartest);
+	scenario_duration_ms = getenv("SMART_SCEN_DURATION_MS");
+	if (scenario_duration_ms == (char *)NULL) {	
+		m_scenario_duration = 180000;
+	} else m_scenario_duration=std::stoi(scenario_duration_ms);
 	//my_launcher = new ScenarioLauncher(my_pyInterface);
 	//my_launcher->start_launcher();
 }
@@ -47,11 +57,18 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 	io_service i;
     deadline_timer t(i);
     std::string s;
-	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\startps.bat";
-	system(s.c_str());
-	std::cout << s << std::endl;
-	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\startOCU.bat";
-	system(s.c_str());
+
+	
+	std::cout << "m_is_full_smartest="<< m_is_full_smartest << std::endl;
+
+    if (m_is_full_smartest) {
+		s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\startps.bat";
+		std::cout << s << std::endl;
+		system(s.c_str());
+		s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\startOCU.bat";
+		std::cout << s << std::endl;
+		system(s.c_str());
+	}
 	std::cout << s << std::endl;
 	std::cout << " my_Scenario_folder_url = "<< my_Scenario_folder_url << std::endl;
 	//Check path expansion if possible
@@ -76,6 +93,7 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration));
 		t.wait();
 		TerminateScenario();
+		PreserveLogs();
 	}
 	//system(s.c_str());
 
@@ -94,15 +112,32 @@ int UnityExecutor::TerminateScenario()
 {
 	int ret;
 	std::string s;
-	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\downps.bat";
-	std::cout << s << std::endl;
-	system(s.c_str());
-	s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\stopOCU.bat";
-	system(s.c_str());
-	std::cout << s << std::endl;
+	io_service i;
+    deadline_timer t(i);
+    if (m_is_full_smartest) {
+		s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\downps.bat";
+		std::cout << s << std::endl;
+		system(s.c_str());
+		s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.2 -l SRVSS_pass C:\\\\scripts\\\\stopOCU.bat";
+		system(s.c_str());
+		std::cout << s << std::endl;
+	}
 	//Add some sleep
 	ret = kill(-m_pid, SIGTERM);
-	sleep(2);
+	t.expires_from_now(boost::posix_time::milliseconds(2000));
+	t.wait();
 	ret = kill(-m_pid, SIGKILL);
 	return ret;
+}
+
+int UnityExecutor::PreserveLogs()
+{
+	std::string player_log, icd_log_path;
+	player_log = my_Scenario_folder_url+"//Player.log";
+	std::cout<<"Copying /home/robil/.config/unity3d/DefaultCompany/Convoy/Player.log to " << player_log <<std::endl;
+	boost::filesystem::copy("/home/robil/.config/unity3d/DefaultCompany/Convoy/Player.log", player_log);
+	icd_log_path = my_Scenario_folder_url+"/icd_logs";
+	Utilities::copyDirectoryRecursively("/home/robil/icd_log",icd_log_path);
+	//boost::filesystem::copy_directory("/home/robil/icd_log", icd_log_path);
+
 }

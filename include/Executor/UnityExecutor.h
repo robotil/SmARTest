@@ -18,6 +18,7 @@ class UnityExecutor {
         int m_pid;
 		//ScenarioLauncher *my_launcher;
 		int m_scenario_duration;
+		int m_is_full_smartest;
 
 	public :
 		UnityExecutor(SFV *sfv);
@@ -25,6 +26,7 @@ class UnityExecutor {
 
 		int RunScenario(int argc, char** argv);
         int TerminateScenario();
+		int PreserveLogs();
 		inline bool get_wasExecutedFlag()
 			{	return was_executed_flag; }
 };

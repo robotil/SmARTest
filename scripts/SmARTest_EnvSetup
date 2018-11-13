@@ -1,9 +1,0 @@
-#!/usr/bin/env python
-
-
-import subprocess
-
-path=subprocess.check_output(["rospack","find","smartest"])
-path= path[:-1]+"/scripts/SmARTest_EnvSetup.sh"
-print path
-subprocess.call(["bash",path])
