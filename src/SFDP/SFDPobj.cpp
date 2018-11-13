@@ -26,6 +26,10 @@ SFDPobj::SFDPobj(std::string SFDP_file_url, std::string Resources_file_url, std:
 {
 	my_SFDP_file_url = SFDP_file_url;
 	my_Resources_file_url = Resources_file_url;
+	if (!boost::filesystem::exists(WS_url)){
+	           boost::filesystem::create_directories(WS_url);
+			   std::cout<<WS_url<<" has been created!" << std::endl;
+	}
 	my_WS_url = WS_url;
 	my_Grades_file_url = WS_url + "Grades.xml";
 	my_division_level = division_level;
