@@ -27,6 +27,10 @@ The results will be integrated in test/13-11-2018-16:48/testSummary.csv
 cd ~smartest;
 build/mainGen -RunScenario SFDP/convoy.SFDP work_space/sampl_2 resource/resource_convoy.xml
 
+# Command line to replay a recorded scenario
+cd ~smartest;
+build/mainGen -ReplayScenario SFDP/convoy.SFDP work_space/sampl_2 resource/resource_convoy.xml
+
 # Notes:
 1. All the paths are relative to the SmARTest directory
 2. If you are in mode of checking without connection to the platform, then setenv FULL_SMARTEST to 0:

@@ -25,6 +25,7 @@ class UnityExecutor {
 		~UnityExecutor();
 
 		int RunScenario(int argc, char** argv);
+		int ReplayScenario(int argc, char** argv);
         int TerminateScenario();
 		int PreserveLogs();
 		inline bool get_wasExecutedFlag()

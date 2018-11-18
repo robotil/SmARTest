@@ -317,6 +317,20 @@ int SFV::execute(int argc, char** argv)
 	
 }
 
+int SFV::replayScenario(int argc, char** argv)
+{ 
+
+	UnityExecutor * ScenExe = new UnityExecutor(this);
+
+   	if (! ScenExe->ReplayScenario(argc,argv))
+   	{
+ 		std::cout << "\033[1;31m Replay of SFVs scenario have failed \033[0m"<< std::endl;
+ 		return(0);
+   	}
+
+	return 1;
+	
+}
 
 TiXmlElement *SFV::get_GradesAsXMLElement(int sfv_index)
 { /*

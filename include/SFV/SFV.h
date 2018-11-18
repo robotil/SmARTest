@@ -51,6 +51,7 @@ class SFV {
 
 		int generate();
 		int execute(int argc, char** argv);
+		int replayScenario(int argc, char** argv);
 
 		TiXmlElement *get_GradesAsXMLElement(int sfv_idex);
 		int PrintResultsToFile();
