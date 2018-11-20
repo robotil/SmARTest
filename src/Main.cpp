@@ -117,6 +117,18 @@ int main(int argc, char** argv)
             if (boost::filesystem::exists(grade)){
 				boost::filesystem::remove(grade);
 			}
+			std::string player = scenario_folder_path+"/Player.log";
+            if (boost::filesystem::exists(player)){
+				boost::filesystem::remove(player);
+			}
+			std::string record = scenario_folder_path+"/record";
+            if (boost::filesystem::exists(record)){
+				boost::filesystem::remove(record);
+			}
+			std::string icd = scenario_folder_path+"/icd_logs";
+            if (boost::filesystem::exists(icd)){
+				boost::filesystem::remove_all(icd);
+			}
             SFV * sfv = new SFV(SFV_root_file,scenario_folder_path);
             sfv->execute(argc,argv);
 			  

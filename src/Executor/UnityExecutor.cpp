@@ -57,6 +57,7 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 	io_service i;
     deadline_timer t(i);
     std::string s;
+	int scen_dur_seconds;
 
 	
 	std::cout << "m_is_full_smartest="<< m_is_full_smartest << std::endl;
@@ -71,9 +72,10 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 	}
 	std::cout << s << std::endl;
 	std::cout << " my_Scenario_folder_url = "<< my_Scenario_folder_url << std::endl;
+	scen_dur_seconds = m_scenario_duration/1000;
 	//Check path expansion if possible
 	//s = "echo Robil12 | sudo -S /home/robil/Convoy/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
-    s = "/home/robil/Convoy/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url; // +"/scen.SFV";
+    s = "/home/robil/Convoy/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url + " -scenDuration " + std::to_string(scen_dur_seconds); // +"/scen.SFV";
     //std::string s = "/bin/sh -c \"/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url + "\"";//+ " &";  +"/scen.SFV";
 	std::string param = "-scenfolder " + my_Scenario_folder_url;
 	std::cout << s << std::endl;
@@ -81,8 +83,6 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 	if (pid == 0){
 		setpgid(0,0);
 		system(s.c_str());
-		//execl(s.c_str(), "", "", (char *) 0);
-		//execl("/home/robil/ConvoyUnity/builds/Convoy.x86_64","Convoy.x86_64","-scenfolder","/home/robil/ws/src/SmARTest/"+my_Scenario_folder_url,NULL);
 		std::cout <<s.c_str() << std::endl;
 		exit(127);
 
@@ -90,7 +90,8 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 		m_pid = pid;
         was_executed_flag = true;
 		std::cout << "m_pid="<< m_pid << std::endl;
-		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration));
+		//Give time to save record, add 2 seconds
+		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration+5000));
 		t.wait();
 		TerminateScenario();
 		PreserveLogs();
@@ -127,7 +128,6 @@ int UnityExecutor::ReplayScenario(int argc, char** argv)
 		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration));
 		t.wait();
 		TerminateScenario();
-		PreserveLogs();
 	}
 		return 1;
 
