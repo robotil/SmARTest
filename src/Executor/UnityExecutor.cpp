@@ -114,6 +114,9 @@ int UnityExecutor::ReplayScenario(int argc, char** argv)
     //std::string s = "/bin/sh -c \"/home/robil/ConvoyUnity/builds/Convoy.x86_64 -scenfolder " + my_Scenario_folder_url + "\"";//+ " &";  +"/scen.SFV";
 	std::string param = "-scenfolder " + my_Scenario_folder_url;
 	std::cout << s << std::endl;
+	system(s.c_str());
+	std::cout <<s.c_str() << std::endl;
+#ifdef TERMINATE+SCENARIO
 	int pid = fork();
 	if (pid == 0){
 		setpgid(0,0);
@@ -127,8 +130,10 @@ int UnityExecutor::ReplayScenario(int argc, char** argv)
 		std::cout << "m_pid="<< m_pid << std::endl;
 		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration));
 		t.wait();
+		m_is_full_smartest = 0;
 		TerminateScenario();
 	}
+#endif
 		return 1;
 
 }
