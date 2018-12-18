@@ -90,8 +90,8 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 		m_pid = pid;
         was_executed_flag = true;
 		std::cout << "m_pid="<< m_pid << std::endl;
-		//Give time to save record, add 2 seconds
-		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration+5000));
+		//Give time to save record, add 8 seconds
+		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration+8000));
 		t.wait();
 		TerminateScenario();
 		PreserveLogs();
@@ -116,7 +116,7 @@ int UnityExecutor::ReplayScenario(int argc, char** argv)
 	std::cout << s << std::endl;
 	system(s.c_str());
 	std::cout <<s.c_str() << std::endl;
-#ifdef TERMINATE+SCENARIO
+#ifdef TERMINATESCENARIO
 	int pid = fork();
 	if (pid == 0){
 		setpgid(0,0);

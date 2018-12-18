@@ -348,7 +348,7 @@ int SFDPobj::Summary(int sample_number)
 
     //open file to write grades
 	ofile.open(fileSummary, std::ios::out /*| std::ios::app*/ );
-	testSummary="Test#,Grade,Location\n";
+	testSummary="Test#,Dist,Throttle, Steering,Location\n";
 	ofile << testSummary << std::endl;
 	for (i=1;i<=sample_number;i++){
 		testName = "sampl_"+std::to_string(i);
@@ -356,9 +356,15 @@ int SFDPobj::Summary(int sample_number)
 		std::ifstream gradeFile(fullPathTest.c_str());
 		std::string line;
 		getline(gradeFile, line);
-		std::string grade = line.substr(line.find(GRADE_DELIMITER) + 1);
-		boost::trim(grade); //ignore white spaces
-		testSummary = std::to_string(i)+CSV_DELIMITER+grade+CSV_DELIMITER+my_WS_url+"/"+testName+CSV_DELIMITER;
+		std::string dist = line.substr(line.find(GRADE_DELIMITER) + 1);
+		boost::trim(dist); //ignore white spaces
+	    getline(gradeFile, line);
+		std::string throttle = line.substr(line.find(GRADE_DELIMITER) + 1);
+		boost::trim(throttle); //ignore white spaces
+	    getline(gradeFile, line);
+		std::string steering = line.substr(line.find(GRADE_DELIMITER) + 1);
+		boost::trim(steering); //ignore white spaces
+		testSummary = std::to_string(i)+CSV_DELIMITER+dist+CSV_DELIMITER+throttle + CSV_DELIMITER + steering + CSV_DELIMITER + my_WS_url+"/"+testName+CSV_DELIMITER;
 		std::cout << testSummary << std::endl;
 		ofile << testSummary << std::endl;
 	}
