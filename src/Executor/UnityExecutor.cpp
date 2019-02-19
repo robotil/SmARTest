@@ -70,7 +70,7 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 		std::cout << s << std::endl;
 		system(s.c_str());
 	}
-	std::cout << s << std::endl;
+	
 	std::cout << " my_Scenario_folder_url = "<< my_Scenario_folder_url << std::endl;
 	scen_dur_seconds = m_scenario_duration/1000;
 	//Check path expansion if possible
@@ -90,8 +90,8 @@ int UnityExecutor::RunScenario(int argc, char** argv)
 		m_pid = pid;
         was_executed_flag = true;
 		std::cout << "m_pid="<< m_pid << std::endl;
-		//Give time to save record, add 8 seconds
-		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration+8000));
+		//Give time to save record, add 20 seconds
+		t.expires_from_now(boost::posix_time::milliseconds(m_scenario_duration+20000));
 		t.wait();
 		TerminateScenario();
 		PreserveLogs();
@@ -145,6 +145,7 @@ int UnityExecutor::TerminateScenario()
 	std::string s;
 	io_service i;
     deadline_timer t(i);
+	std::cout << "TerminateScenario called" << std::endl;
     if (m_is_full_smartest) {
 		s = "ssh -oHostKeyAlgorithms=+ssh-dss 192.168.70.3 -l SRVSS_Pass C:\\\\scripts\\\\downps.bat";
 		std::cout << s << std::endl;
